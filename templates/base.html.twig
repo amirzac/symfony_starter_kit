@@ -1,44 +1,134 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        <div>
-            <ul>
-                <li>
-                    <a href="{{ path('app_homepage') }}">{{ "Homepage"|trans }}</a>
+<html lang="en" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <!-- Custom styles for this template -->
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+<header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{{ path('app_homepage') }}">
+        <img class="navbar-brand-full" src="https://coreui.io/demo/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">
+        <img class="navbar-brand-minimized" src="https://coreui.io/demo/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">
+    </a>
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav ml-auto mr-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+{#                {{ app.user.username }}#}
+                Username
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header text-center">
+                    <strong>Account</strong>
+                </div>
+                <a class="dropdown-item" href="{{ path('app_profile_page') }}"><i class="fa fa-user"></i> Profile</a>
+                <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+</header>
+<div class="app-body">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_homepage') }}">
+                        <i class="nav-icon icon-speedometer"></i> Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_homepage') }}">{{ "Homepage"|trans }}</a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a href="{{ path('app_admin_page') }}">{{ "Admin page"|trans }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_admin_page') }}">{{ "Admin page"|trans }}</a>
                     </li>
                 {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li>
-                        <a href="{{ path('app_profile_page') }}">{{ "Profile"|trans }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_profile_page') }}">{{ "Profile"|trans }}</a>
                     </li>
                 {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li>
-                        <a href="{{ path('app_logout') }}">{{ "Logout"|trans }}</a>
-                    </li>
-                {% endif %}
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li>
-                        <a href="{{ path('app_login') }}">{{ "Login"|trans }}</a>
-                    </li>
-                {% endif %}
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li>
-                        <a href="{{ path('app_register') }}">{{ "Register"|trans }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">{{ "Logout"|trans }}</a>
                     </li>
                 {% endif %}
             </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+    <main class="main">
+        {% block breadcrumbs %}{% endblock %}
+        <div class="container-fluid">
+{#            {% include '_flashes.html.twig' %}#}
+            {% block body %}{% endblock %}
         </div>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </main>
+</div>
+<footer class="app-footer">
+    <div>
+        <span>© {{ "now"|date("Y") }} All rights reserved</span>
+    </div>
+</footer>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
 </html>
+
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#    <head>#}
+{#        <meta charset="UTF-8">#}
+{#        <title>{% block title %}Welcome!{% endblock %}</title>#}
+{#        {% block stylesheets %}{% endblock %}#}
+{#    </head>#}
+{#    <body>#}
+{#        <div>#}
+{#            <ul>#}
+{#                <li>#}
+{#                    <a href="{{ path('app_homepage') }}">{{ "Homepage"|trans }}</a>#}
+{#                </li>#}
+{#                {% if is_granted('ROLE_ADMIN') %}#}
+{#                    <li>#}
+{#                        <a href="{{ path('app_admin_page') }}">{{ "Admin page"|trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li>#}
+{#                        <a href="{{ path('app_profile_page') }}">{{ "Profile"|trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li>#}
+{#                        <a href="{{ path('app_logout') }}">{{ "Logout"|trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li>#}
+{#                        <a href="{{ path('app_login') }}">{{ "Login"|trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}#}
+{#                    <li>#}
+{#                        <a href="{{ path('app_register') }}">{{ "Register"|trans }}</a>#}
+{#                    </li>#}
+{#                {% endif %}#}
+{#            </ul>#}
+{#        </div>#}
+{#        {% block body %}{% endblock %}#}
+{#        {% block javascripts %}{% endblock %}#}
+{#    </body>#}
+{#</html>#}

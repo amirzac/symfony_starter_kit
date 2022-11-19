@@ -19,7 +19,7 @@
     "simple-line-icons": "^2.4.1"
   },
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.27.0",
+    "@symfony/webpack-encore": "^4.1.1",
     "core-js": "^3.0.0",
     "webpack-notifier": "^1.6.0"
   }
